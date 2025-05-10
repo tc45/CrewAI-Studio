@@ -66,8 +66,29 @@ All notable changes to the CrewAI Studio project will be documented in this file
 - Installation process started but was terminated due to memory constraints
 - The changes to pyproject.toml have resolved the circular dependency issues
 
+### 2023-10-30 - Dependency Version Alignment
+
+#### Changed
+- Updated pyproject.toml with exact versions from a working installation:
+  - crewai = "0.119.0"
+  - crewai-tools = "0.44.0"
+  - langchain = "0.3.25"
+  - langchain-community = "0.3.23"
+  - langchain-core = "0.3.59"
+  - langchain-openai = "0.2.14"
+  - langchain-groq = "0.3.2"
+  - langchain-anthropic = "0.3.13"
+  - langchain-ollama = "0.3.2"
+  - streamlit = "1.45.0"
+  - python-dotenv = "1.1.0"
+  - pdfminer-six = "20250327"
+  - sqlalchemy = "2.0.40"
+  - psycopg2-binary = "2.9.10"
+  - snowflake-connector-python = "3.15.0"
+  - markdown = "3.8"
+  - docling = "2.31.0"
+
 #### Next Steps
-- Test installation on a system with more memory
-- Consider using a more minimal set of dependencies for development
+- Test installation with the exact versions from a working installation
 - Verify Docker builds successfully with the new configuration
 - Run the application to ensure all components work correctly
