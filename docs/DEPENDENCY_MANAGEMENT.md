@@ -4,7 +4,7 @@ CrewAI Studio uses Poetry for dependency management and uv for faster installati
 
 ## Prerequisites
 
-- Python 3.10 or higher
+- Python 3.10 or higher (but less than 3.13 due to dependency constraints)
 - Poetry (installation instructions below)
 - uv (installation instructions below)
 
@@ -83,6 +83,21 @@ After installing dependencies, you can run the application using:
 
 # On Windows
 run_venv.bat
+```
+
+## Using Poetry for Commands
+
+Always use Poetry to run commands in the virtual environment instead of activating the virtual environment directly. This ensures that the correct dependencies are used.
+
+```bash
+# Run a Python script
+poetry run python script.py
+
+# Run tests
+poetry run pytest
+
+# Run a specific command
+poetry run streamlit run app/app.py
 ```
 
 ## Managing Dependencies

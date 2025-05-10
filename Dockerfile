@@ -1,5 +1,5 @@
 # Baseimage
-FROM python:3.12.10-slim-bookworm
+FROM python:3.10-slim-bookworm
 
 # Update Packages
 RUN apt update
@@ -13,8 +13,8 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="/root/.local/bin:$PATH"
 RUN pip install uv
 
-# Configure Poetry to use uv
-RUN poetry config installer.modern-installation false
+# Configure Poetry
+RUN poetry --version
 
 RUN mkdir /CrewAI-Studio
 WORKDIR /CrewAI-Studio

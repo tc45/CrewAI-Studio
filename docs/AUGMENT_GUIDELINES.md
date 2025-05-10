@@ -10,6 +10,65 @@ This document outlines the guidelines that Augment (Auggie) will follow when ass
 - Organize tests in the `tests` directory mirroring the app structure
 - Respect the existing file organization patterns
 
+## Dependency Management with Poetry
+
+### Using Poetry for All Commands
+
+Always use Poetry to run commands in the virtual environment instead of activating the virtual environment directly or using venv. This ensures that the correct dependencies are used and that the environment is consistent across all developers.
+
+```bash
+# CORRECT: Use Poetry to run commands
+poetry run python script.py
+poetry run pytest
+poetry run streamlit run app/app.py
+
+# INCORRECT: Don't use venv directly
+source venv/bin/activate
+python script.py  # Don't do this
+```
+
+### Adding Dependencies
+
+When adding new dependencies, always use Poetry:
+
+```bash
+# Add a regular dependency
+poetry add package-name
+
+# Add a development dependency
+poetry add --group dev package-name
+```
+
+### Python Version Constraints
+
+Due to dependency constraints, CrewAI Studio requires Python 3.10 or higher, but less than 3.13. This is specified in the `pyproject.toml` file.
+
+### Code Style and Formatting with Poetry
+
+Run these tools using Poetry:
+
+```bash
+poetry run black app
+poetry run isort app
+poetry run flake8 app
+poetry run mypy app
+```
+
+### Testing with Poetry
+
+- Write tests for all new functionality
+- Run tests using Poetry:
+
+```bash
+poetry run pytest
+```
+
+- For test coverage:
+
+```bash
+poetry run pytest --cov=app
+```
+
 ## Code Style Guidelines
 
 - Follow PEP 8 style guide for Python code
@@ -110,5 +169,11 @@ When implementing Model Context Protocol:
 - Include date/timestamp with each entry
 - Briefly describe what was changed and why
 - Categorize changes (feature, bugfix, enhancement, etc.)
+
+## Docker and CI/CD
+
+When using Docker, the Dockerfile is configured to use Poetry for dependency management. The Docker container uses Python 3.10 to ensure compatibility with all dependencies.
+
+The CI/CD pipeline is configured to use Poetry for all commands. This ensures that the same environment is used in CI/CD as in local development.
 
 By following these guidelines, Augment will help implement the enhancement plan while maintaining code quality and project stability.

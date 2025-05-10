@@ -112,7 +112,7 @@ test(crew): add unit tests for crew execution
    - Install dependencies: `poetry install`
 4. Create a new branch: `git checkout -b feature/your-feature-name`
 5. Make your changes
-6. Run tests: `poetry run pytest`
+6. Run tests: `poetry run pytest` (always use `poetry run` for commands in the virtual environment)
 7. Commit your changes following the commit message conventions
 8. Push to your fork: `git push origin feature/your-feature-name`
 9. Create a Pull Request
