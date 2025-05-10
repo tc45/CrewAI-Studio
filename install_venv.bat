@@ -1,28 +1,44 @@
 @echo off
-echo Creating virtual environment...
-python -m venv venv
+echo Checking if Poetry is installed...
+where poetry >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Failed to create venv
+    echo Poetry is not installed. Installing Poetry globally...
+    powershell -Command "Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing | python -"
+    if %errorlevel% neq 0 (
+        echo Failed to install Poetry
+        exit /b %errorlevel%
+    )
+    :: Add Poetry to PATH for the current session
+    set PATH=%USERPROFILE%\AppData\Roaming\Python\Scripts;%PATH%
+)
+
+echo Checking if uv is installed...
+where uv >nul 2>&1
+if %errorlevel% neq 0 (
+    echo uv is not installed. Installing uv globally...
+    pip install --user uv
+    if %errorlevel% neq 0 (
+        echo Failed to install uv
+        exit /b %errorlevel%
+    )
+    :: Add uv to PATH for the current session
+    set PATH=%USERPROFILE%\AppData\Roaming\Python\Scripts;%PATH%
+)
+
+echo Configuring Poetry to use uv...
+poetry config installer.modern-installation false
+
+echo Installing dependencies using Poetry...
+poetry install
+if %errorlevel% neq 0 (
+    echo Failed to install dependencies
     exit /b %errorlevel%
 )
 
-echo Activating virtual environment...
-call venv\Scripts\activate.bat
-if %errorlevel% neq 0 (
-    echo Failed to activate venv
-    exit /b %errorlevel%
-)
-
-echo Installing requirements...
-pip install -r requirements.txt --no-cache
-if %errorlevel% neq 0 (
-    echo Failed to install requirements
-    exit /b %errorlevel%
-)
 set /p install_agentops="Do you want to install agentops? (y/n): "
 if /i "%install_agentops%"=="y" (
     echo Installing agentops...
-    pip install agentops
+    poetry add agentops
     if %errorlevel% neq 0 (
         echo Failed to install agentops
         exit /b %errorlevel%

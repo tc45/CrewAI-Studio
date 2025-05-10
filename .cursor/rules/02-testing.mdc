@@ -1,0 +1,63 @@
+---
+description: 
+globs: tests/**/*,tests/*
+alwaysApply: false
+---
+# Testing Guidelines
+
+## Test Structure
+- Tests should mirror the application structure in `tests/`
+- Use pytest as the testing framework
+- Organize tests by feature/module
+- Follow test file naming convention: `test_*.py`
+
+## Test Coverage Requirements
+- Minimum unit test coverage: 80%
+- Minimum integration test coverage: 70%
+- Security-critical code: 90% coverage
+- Frontend components: Critical path coverage
+
+## Test Types
+1. **Unit Tests**
+   - Test individual components in isolation
+   - Mock external dependencies
+   - Fast execution (< 100ms per test)
+   - Clear test names describing behavior
+
+2. **Integration Tests**
+   - Test component interactions
+   - Use test databases
+   - Test API endpoints
+   - Verify data flow
+
+3. **Security Tests**
+   - Test permission boundaries
+   - Validate input sanitization
+   - Test authentication flows
+   - Verify secure data handling
+
+4. **UI Tests**
+   - Test component rendering
+   - Verify user interactions
+   - Test responsive behavior
+   - Cross-browser compatibility
+
+## Test Best Practices
+- Write tests before code (TDD)
+- Use descriptive test names
+- One assertion per test
+- Use appropriate fixtures
+- Clean up test data
+- Document test requirements
+
+## Test Data
+- Use factories for test data generation
+- Avoid hardcoded test data
+- Clean up test data after tests
+- Use meaningful test data names
+
+## CI/CD Integration
+- All tests must pass before merge
+- Run tests on every pull request
+- Generate coverage reports
+- Fail builds on coverage drops

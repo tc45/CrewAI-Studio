@@ -1,0 +1,97 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Frontend Development Guidelines
+
+## UI Components
+- Use Streamlit components consistently
+- Follow responsive design principles
+- Implement proper error handling
+- Use appropriate loading states
+- Maintain consistent styling
+
+## Component Structure
+```python
+def draw_component():
+    with st.container():
+        st.header("Component Title")
+        
+        # Input section
+        with st.form("form_key"):
+            # Form inputs
+            submitted = st.form_submit_button()
+            
+        # Output section
+        if submitted:
+            with st.spinner("Processing..."):
+                # Process and display results
+```
+
+## State Management
+- Use session_state appropriately
+- Clear state when needed
+- Document state dependencies
+- Handle state conflicts
+- Implement proper cleanup
+
+## Error Handling
+- Display user-friendly error messages
+- Implement proper error boundaries
+- Log errors appropriately
+- Provide recovery options
+- Maintain UI stability
+
+## Performance
+- Optimize component updates
+- Minimize state changes
+- Use caching when appropriate
+- Lazy load when possible
+- Monitor memory usage
+
+## Accessibility
+- Use proper heading hierarchy
+- Provide alt text for images
+- Ensure keyboard navigation
+- Use appropriate color contrast
+- Support screen readers
+
+## Best Practices
+1. **Component Organization**
+   - One component per file
+   - Clear component hierarchy
+   - Proper file naming
+   - Document dependencies
+
+2. **Input Validation**
+   - Client-side validation
+   - Clear error messages
+   - Input formatting
+   - Type checking
+
+3. **Documentation**
+   - Document component props
+   - Include usage examples
+   - Note dependencies
+   - Document state requirements
+
+4. **Testing**
+   - Test component rendering
+   - Test user interactions
+   - Test error states
+   - Test responsiveness
+
+## Styling Guidelines
+- Use consistent color scheme
+- Follow spacing guidelines
+- Maintain responsive layouts
+- Use appropriate typography
+- Implement proper animations
+
+## Security Considerations
+- Sanitize user inputs
+- Validate file uploads
+- Secure data handling
+- Implement proper permissions
+- Handle sensitive data

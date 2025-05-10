@@ -1,0 +1,218 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Loguru Logging Guidelines
+
+## Basic Setup
+```python
+from loguru import logger
+
+# Remove default handler
+logger.remove()
+
+# Add custom handler with formatting
+logger.add(
+    "app.log",
+    format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} | {message}",
+    level="INFO",
+    rotation="10 MB",
+    compression="zip"
+)
+
+# Optional: Add stderr handler for development
+logger.add(sys.stderr, level="DEBUG", colorize=True)
+```
+
+## Log Levels (from least to most severe)
+- **TRACE**: Very detailed debugging information
+- **DEBUG**: Debugging information
+- **INFO**: General operational events
+- **SUCCESS**: Successful operations
+- **WARNING**: Potential issues
+- **ERROR**: Error events
+- **CRITICAL**: System-critical issues
+
+## Best Practices
+
+1. **Context Management**
+```python
+# Add context to all subsequent logs
+logger = logger.bind(user_id="123")
+logger.info("User action")  # Will include user_id
+
+# Temporary context
+with logger.contextualize(task_id="456"):
+    logger.info("Processing task")  # Will include task_id
+```
+
+2. **Exception Handling**
+```python
+@logger.catch
+def my_function():
+    # This will automatically catch and log any exceptions
+    do_something_risky()
+
+# Or manually
+try:
+    do_something_risky()
+except Exception as e:
+    logger.exception("Operation failed")  # Automatically includes traceback
+```
+
+3. **Structured Logging**
+```python
+# JSON formatting
+logger.add(
+    "app.json",
+    serialize=True,  # Enable JSON formatting
+    format="{time} {level} {message}",
+    rotation="1 day"
+)
+
+# Log structured data
+logger.info({
+    "event": "user_login",
+    "user_id": 123,
+    "ip_address": "192.168.1.1"
+})
+```
+
+## Security Guidelines
+
+1. **Sensitive Data**
+```python
+# Define sensitive fields
+SENSITIVE_FIELDS = ['password', 'token', 'secret']
+
+def sanitize_log(record):
+    # Sanitize sensitive data before logging
+    for field in SENSITIVE_FIELDS:
+        if field in record["extra"]:
+            record["extra"][field] = "***"
+    return record
+
+# Add handler with sanitization
+logger.add("app.log", filter=sanitize_log)
+```
+
+2. **File Security**
+- Set appropriate file permissions
+- Use secure log rotation
+- Implement log encryption if needed
+- Regular log cleanup
+
+## Performance Optimization
+
+1. **Async Logging**
+```python
+# Enable async logging for better performance
+logger.add("app.log", enqueue=True)
+```
+
+2. **Log Level Control**
+```python
+# Production settings
+logger.add("app.log", level="INFO")
+logger.add("errors.log", level="ERROR")
+```
+
+## Crew-Specific Logging
+
+1. **Agent Logging**
+```python
+# Add agent context
+logger = logger.bind(agent_id=agent.id, agent_role=agent.role)
+
+# Log agent actions
+logger.info("Starting task execution")
+logger.debug("Agent context: {context}", context=agent.context)
+```
+
+2. **Task Logging**
+```python
+# Add task context
+with logger.contextualize(task_id=task.id):
+    logger.info("Task {task_name} started", task_name=task.name)
+    try:
+        result = task.execute()
+        logger.success("Task completed successfully")
+    except Exception as e:
+        logger.error("Task failed: {error}", error=str(e))
+```
+
+3. **Tool Usage Logging**
+```python
+@logger.catch
+def execute_tool(tool, args):
+    logger.debug("Executing tool: {tool_name}", tool_name=tool.name)
+    with logger.contextualize(tool_id=tool.id):
+        result = tool.execute(**args)
+        logger.info("Tool execution completed")
+    return result
+```
+
+## Testing and Debugging
+
+1. **Debug Mode**
+```python
+# Enable debug mode with detailed output
+logger.add("debug.log", level="TRACE", backtrace=True, diagnose=True)
+```
+
+2. **Testing Configuration**
+```python
+# Test-specific logging setup
+def setup_test_logging():
+    logger.remove()  # Remove all handlers
+    logger.add(sys.stderr, level="DEBUG")
+    return logger.catch  # Return decorator for test functions
+```
+
+## Monitoring Integration
+
+1. **Log Aggregation**
+```python
+# Add handler for external log aggregation
+logger.add(
+    "aggregator.log",
+    format="{time} {level} {message}",
+    serialize=True,
+    rotation="1 day",
+    compression="zip"
+)
+```
+
+2. **Metrics**
+```python
+# Add metrics context
+with logger.contextualize(metrics=True):
+    logger.info("Performance metric: {metric}", metric={"response_time": 200})
+```
+
+## Implementation Checklist
+
+1. **Initial Setup**
+   - [ ] Install Loguru: `pip install loguru`
+   - [ ] Configure basic logging
+   - [ ] Set up log rotation
+   - [ ] Define log formats
+
+2. **Security**
+   - [ ] Implement data sanitization
+   - [ ] Set file permissions
+   - [ ] Configure secure rotation
+   - [ ] Set up log cleanup
+
+3. **Performance**
+   - [ ] Enable async logging
+   - [ ] Configure appropriate levels
+   - [ ] Set up log aggregation
+   - [ ] Monitor log size
+
+4. **Testing**
+   - [ ] Create test configuration
+   - [ ] Verify log output
+   - [ ] Test error handling
+   - [ ] Validate security measures

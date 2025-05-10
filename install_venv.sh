@@ -16,38 +16,44 @@ prompt_yes_no() {
     done
 }
 
+# Check if Poetry is installed (should be installed globally)
+if ! command -v poetry &> /dev/null; then
+    echo "Poetry is not installed. Installing Poetry globally..."
+    curl -sSL https://install.python-poetry.org | python3 - || { echo "Failed to install Poetry"; exit 1; }
+    # Add Poetry to PATH for the current session
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# Check if uv is installed (should be installed globally)
+if ! command -v uv &> /dev/null; then
+    echo "uv is not installed. Installing uv globally..."
+    pip install --user uv || { echo "Failed to install uv"; exit 1; }
+    # Add uv to PATH for the current session
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Check if venv exists
-if [ -d "venv" ]; then
-    if prompt_yes_no "The virtual environment 'venv' already exists. Do you want to reinstall it?"; then
+if [ -d ".venv" ]; then
+    if prompt_yes_no "The virtual environment '.venv' already exists. Do you want to reinstall it?"; then
         echo "Removing existing virtual environment..."
-        rm -rf venv || { echo "Failed to remove existing venv"; exit 1; }
+        rm -rf .venv || { echo "Failed to remove existing venv"; exit 1; }
     else
         echo "Installation canceled."
         exit 0
     fi
 fi
 
-# Create a virtual environment
-python -m venv venv || { echo "Failed to create venv"; exit 1; }
+# Configure Poetry to use uv as installer
+poetry config installer.modern-installation false
 
-# Activate the virtual environment
-source venv/bin/activate || { echo "Failed to activate venv"; exit 1; }
+# Install dependencies using Poetry
+echo "Installing dependencies using Poetry and uv..."
+poetry install || { echo "Failed to install dependencies"; exit 1; }
 
-# Prompt for cache usage
-USE_CACHE="--no-cache"
-if prompt_yes_no "Do you want to use the cache for pip installation?"; then
-    USE_CACHE=""
-fi
-
-# Install requirements
-pip install -r requirements.txt $USE_CACHE || { echo "Failed to install requirements"; exit 1; }
-
-#agentops
-echo "Do you want to install agentops? (y/n)"
-read agentops
-if [ "$agentops" == "y" ]; then
+# Prompt for agentops installation
+if prompt_yes_no "Do you want to install agentops?"; then
     echo "Installing agentops..."
-    pip install agentops || { echo "Failed to install agentops"; }
+    poetry add agentops || { echo "Failed to install agentops"; }
 fi
 # Check if .env file exists, if not copy .env_example to .env
 if [ ! -f "$SCRIPT_DIR/.env" ]; then

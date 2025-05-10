@@ -1,0 +1,88 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# CrewAI Implementation Guidelines
+
+## Crew Structure
+- Each crew should have a clear, single responsibility
+- Define explicit dependencies between tasks
+- Use appropriate process types (sequential/hierarchical)
+- Document crew purpose and requirements
+
+## Agent Design
+- Agents should have focused roles
+- Clear backstory and goals
+- Appropriate tool selection
+- Documented expected outputs
+
+## Task Management
+- Tasks should be atomic and focused
+- Clear input/output specifications
+- Explicit dependencies
+- Appropriate agent assignments
+
+## Tool Implementation
+- Tools must inherit from base Tool class
+- Clear documentation of parameters
+- Input validation
+- Error handling
+- Security considerations
+
+## Code Organization
+1. **Crew Definitions**
+   ```python
+   class MyCrew:
+       def __init__(self):
+           self.name = "descriptive_name"
+           self.process = Process.sequential
+           self.agents = []
+           self.tasks = []
+   ```
+
+2. **Agent Definitions**
+   ```python
+   class MyAgent:
+       def __init__(self):
+           self.role = "specific_role"
+           self.goal = "clear_goal"
+           self.backstory = "relevant_context"
+   ```
+
+3. **Task Definitions**
+   ```python
+   class MyTask:
+       def __init__(self):
+           self.description = "clear_description"
+           self.expected_output = "output_format"
+           self.agent = specific_agent
+   ```
+
+## Security Guidelines
+- Validate all tool inputs
+- Sanitize agent outputs
+- Implement proper error handling
+- Use appropriate permission checks
+- Monitor resource usage
+
+## Performance Considerations
+- Optimize task dependencies
+- Use appropriate batch sizes
+- Monitor memory usage
+- Implement timeouts
+- Cache when appropriate
+
+## Testing Requirements
+- Test crew execution paths
+- Validate agent interactions
+- Test tool functionality
+- Verify error handling
+- Test security boundaries
+
+## Documentation Requirements
+- Document crew purpose
+- List agent capabilities
+- Specify task requirements
+- Detail tool usage
+- Include examples

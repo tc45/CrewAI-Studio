@@ -43,6 +43,7 @@ This document outlines the guidelines that Augment (Auggie) will follow when ass
 - Organize tests to mirror the application structure
 - Use pytest as the testing framework
 - Aim for high test coverage, especially for critical components
+- Tests should be automatically run and validated at the end of each implementation section
 
 ## Logging Guidelines
 
@@ -105,7 +106,7 @@ When implementing Model Context Protocol:
 
 ## Changelog Management
 
-- For significant changes, suggest updates to `logs/CHANGELOG.md`
+- For medium to significant changes, update to `logs/CHANGELOG.md`
 - Include date/timestamp with each entry
 - Briefly describe what was changed and why
 - Categorize changes (feature, bugfix, enhancement, etc.)

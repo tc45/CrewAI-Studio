@@ -1,0 +1,47 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# General Project Guidelines
+
+## Project Structure
+- The project follows a modular structure with clear separation of concerns
+- Main application code resides in the `app` directory
+- Documentation is stored in the `docs` directory
+- Tests are organized in the `tests` directory mirroring the app structure
+
+## Version Control
+- Use meaningful commit messages following conventional commits format
+- Branch naming: `feature/`, `bugfix/`, `enhancement/`, `docs/` prefixes
+- Create pull requests for all significant changes
+- Keep commits focused and atomic
+
+## Code Style
+- Follow PEP 8 style guide for Python code
+- Use type hints for all function parameters and return values
+- Maximum line length: 100 characters
+- Use descriptive variable and function names
+- Document all public functions and classes
+
+## Dependencies
+- Keep dependencies up to date
+- Document all requirements in `requirements.txt`
+- Pin dependency versions for stability
+- Use virtual environments for development
+
+## Documentation
+- Keep documentation up to date with code changes
+- Document all major features in `docs/`
+- Include examples and use cases
+
+# Cursor Coding Rules
+
+## Modular Design
+- Always adhere to modular design ideals: keep code organized, separated by concern, and easy to extend or maintain.
+
+## Code Change Policy
+- When asked to make changes, do not remove or replace any existing code unless explicitly instructed to do so. Add new features or logic in a way that preserves all working code.
+
+## Changelog Requirement
+- For every code change, append a description of the step to `logs/change.log` as a changelog entry. Each entry should briefly describe what was changed and why.  Maintain changelog in `logs/CHANGELOG.md`.  Date/timestamp each entry.
