@@ -43,8 +43,8 @@ if [ -d ".venv" ]; then
     fi
 fi
 
-# Configure Poetry to use uv as installer
-poetry config installer.modern-installation false
+# Configure Poetry
+poetry --version
 
 # Install dependencies using Poetry
 echo "Installing dependencies using Poetry and uv..."

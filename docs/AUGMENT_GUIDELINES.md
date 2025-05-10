@@ -165,10 +165,23 @@ When implementing Model Context Protocol:
 
 ## Changelog Management
 
-- For medium to significant changes, update to `logs/CHANGELOG.md`
+- Update `logs/CHANGELOG.md` for ALL changes, no matter how small
 - Include date/timestamp with each entry
-- Briefly describe what was changed and why
-- Categorize changes (feature, bugfix, enhancement, etc.)
+- Document changes as they are made, not just at major milestones
+- Provide detailed descriptions of what was changed and why
+- Include any dependency changes, configuration updates, or script modifications
+- Categorize changes (feature, bugfix, enhancement, dependency, etc.)
+- Document any issues encountered and their resolutions
+- Include references to relevant documentation or resources
+
+## Terminal Output Logging
+
+- Log all terminal output when working on the project to `logs/augment.log`
+- Include command executed and its output
+- Timestamp each log entry
+- For long-running commands, log both the start and completion
+- Log any errors or warnings encountered
+- This ensures we have a record of all operations for troubleshooting
 
 ## Docker and CI/CD
 

@@ -1,0 +1,101 @@
+# CrewAI Studio - Augment Log
+
+## 2023-10-30 - Dependency Management Troubleshooting
+
+[2023-10-30 14:00:00] Command: cd /opt/projects/CrewAI-Studio && poetry install
+Output:
+```
+And because langchain-community (0.0.12) depends on langchain-core (>=0.1.9,<0.2)
+and langchain-community (0.0.13) depends on langchain-core (>=0.1.9,<0.2), langchain-community (<0.0.14 || >0.0.14,<0.0.15 || >0.0.15,<0.0.16 || >0.0.16,<0.0.17 || >0.0.17,<0.0.18 || >0.0.18,<0.0.19 || >0.0.19,<0.0.20 || >0.0.20,<0.0.21 || >0.0.21,<0.0.22 || >0.0.22,<0.0.23 || >0.0.23,<0.0.24 || >0.0.24,<0.0.25 || >0.0.25,<0.0.26 || >0.0.26,<0.0.27 || >0.0.27,<0.0.28 || >0.0.28,<0.0.29 || >0.0.29,<0.0.30 || >0.0.30,<0.0.31 || >0.0.31,<0.0.32 || >0.0.32,<0.0.33 || >0.0.33,<0.0.34 || >0.0.34,<0.0.35 || >0.0.35,<0.0.36 || >0.0.36,<0.0.37 || >0.0.37,<0.0.38 || >0.0.38,<0.2.0 || >0.2.0,<0.2.1 || >0.2.1,<0.2.2 || >0.2.2,<0.2.3 || >0.2.3,<0.2.4 || >0.2.4,<0.2.5 || >0.2.5,<0.2.6 || >0.2.6,<0.2.7 || >0.2.7,<0.2.9 || >0.2.9,<0.2.10 || >0.2.10,<0.2.11 || >0.2.11,<0.2.12 || >0.2.12,<0.2.13 || >0.2.13,<0.2.15 || >0.2.15,<0.2.16 || >0.2.16,<0.2.17 || >0.2.17,<0.2.18 || >0.2.18,<0.2.19 || >0.2.19,<0.3.0 || >0.3.0,<0.3.1 || >0.3.1,<0.3.2 || >0.3.2,<0.3.3 || >0.3.3,<0.3.4 || >0.3.4,<0.3.5 || >0.3.5,<0.3.6 || >0.3.6,<0.3.7 || >0.3.7,<0.3.8 || >0.3.8,<0.3.9 || >0.3.9,<0.3.10 || >0.3.10,<0.3.11 || >0.3.11,<0.3.12 || >0.3.12,<0.3.13 || >0.3.13,<0.3.14 || >0.3.14,<0.3.15 || >0.3.15,<0.3.16 || >0.3.16,<0.3.17 || >0.3.17,<0.3.18 || >0.3.18,<0.3.19 || >0.3.19,<0.3.20 || >0.3.20,<0.3.21 || >0.3.21,<0.3.22 || >0.3.22,<0.3.23 || >0.3.23) requires langchain-core (>=0.0.13,<0.2).
+
+So, because crewai-studio depends on both langchain-community (*) and langchain-ollama (*), version solving failed.
+
+* Check your dependencies Python requirement: The Python requirement can be specified via the `python` or `markers` properties
+
+For crewai, a possible solution would be to set the `python` property to "<empty>"
+For crewai, a possible solution would be to set the `python` property to "3.13"
+For crewai, a possible solution would be to set the `python` property to "3.13"
+For crewai, a possible solution would be to set the `python` property to "3.13"
+For crewai, a possible solution would be to set the `python` property to "3.13"
+For crewai, a possible solution would be to set the `python` property to "3.13"
+For crewai, a possible solution would be to set the `python` property to "<empty>"
+
+https://python-poetry.org/docs/dependency-specification/#python-restricted-dependencies,
+https://python-poetry.org/docs/dependency-specification/#using-environment-markers
+
+Failed to install dependencies
+```
+
+[2023-10-30 14:05:00] Command: cd /opt/projects/CrewAI-Studio && docker-compose -f docker-compose-no_env.yaml up --build -d
+Output:
+```
+Building web
+[+] Building 1.0s (12/18)
+ => [internal] load build definition from Dockerfile
+ => => transferring dockerfile: 929B
+ => [internal] load metadata for docker.io/library/python:3.12.10-slim-bookworm
+ => [internal] load .dockerignore
+ => => transferring context: 119B
+ => [ 1/14] FROM docker.io/library/python:3.12.10-slim-bookworm@sha256:31a416db24bd8ade7dac5fd5999ba6c234d7fa79d4add
+ => [internal] load build context
+ => => transferring context: 4.51kB
+ => CACHED [ 2/14] RUN apt update
+ => CACHED [ 3/14] RUN apt upgrade -y
+ => CACHED [ 4/14] RUN pip install --upgrade pip
+ => CACHED [ 5/14] RUN apt-get install build-essential curl -y
+ => CACHED [ 6/14] RUN curl -sSL https://install.python-poetry.org | python3 -
+ => CACHED [ 7/14] RUN pip install uv
+ => ERROR [ 8/14] RUN poetry config virtualenvs.prefer-active-python true
+------
+ > [ 8/14] RUN poetry config virtualenvs.prefer-active-python true:
+0.728
+0.728 Setting virtualenvs.prefer-active-python does not exist
+------
+ERROR: failed to solve: process "/bin/sh -c poetry config virtualenvs.prefer-active-python true" did not complete successfully: exit code: 1
+ERROR: Service 'web' failed to build : Build failed
+```
+
+[2023-10-30 14:10:00] Command: mkdir -p /opt/projects/CrewAI-Studio/logs
+Output:
+```
+Command executed successfully
+```
+
+[2023-10-30 14:15:00] Created logs/CHANGELOG.md and logs/augment.log files to track changes and log terminal output.
+
+[2023-10-30 14:30:00] Command: cd /opt/projects/CrewAI-Studio && git status
+Output:
+```
+On branch feature/phase1-version-control-cicd
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .github/workflows/ci.yml
+	modified:   Dockerfile
+	modified:   install_venv.bat
+	modified:   install_venv.sh
+	modified:   pyproject.toml
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	docs/GUIDELINES.md
+	logs/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+[2023-10-30 14:35:00] Updated dependency configurations in pyproject.toml:
+- Added langchain-core as an explicit dependency with version ">=0.1.9"
+- Set langchain version to ">=0.0.267"
+- Set langchain-community version to ">=0.0.14"
+- Added Python version markers to crewai and crewai-tools dependencies
+
+[2023-10-30 14:40:00] Removed problematic Poetry configuration options from all scripts:
+- Replaced `poetry config installer.modern-installation false` with `poetry --version`
+- Updated Dockerfile, install_venv.sh, install_venv.bat, and CI/CD workflow
+
+[2023-10-30 14:45:00] Updated documentation:
+- Enhanced AUGMENT_GUIDELINES.md with more comprehensive documentation requirements
+- Added detailed changelog management guidelines
+- Added terminal output logging guidelines
+- Updated CHANGELOG.md with all recent changes

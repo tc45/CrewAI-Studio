@@ -25,8 +25,8 @@ if %errorlevel% neq 0 (
     set PATH=%USERPROFILE%\AppData\Roaming\Python\Scripts;%PATH%
 )
 
-echo Configuring Poetry to use uv...
-poetry config installer.modern-installation false
+echo Configuring Poetry...
+poetry --version
 
 echo Installing dependencies using Poetry...
 poetry install
