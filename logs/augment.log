@@ -99,3 +99,21 @@ no changes added to commit (use "git add" and/or "git commit -a")
 - Added detailed changelog management guidelines
 - Added terminal output logging guidelines
 - Updated CHANGELOG.md with all recent changes
+
+[2023-10-30 15:00:00] Command: cd /opt/projects/CrewAI-Studio && chmod +x install_venv.sh && ./install_venv.sh
+Output:
+```
+Poetry (version 2.1.3)
+Installing dependencies using Poetry and uv...
+Updating dependencies
+Resolving dependencies... (50.1s)
+
+Package operations: 271 installs, 0 updates, 0 removals
+
+[... many package installations ...]
+
+./install_venv.sh: line 51: 62119 Killed                  poetry install
+Failed to install dependencies
+```
+
+The installation process made progress but was killed, possibly due to memory constraints. The dependency resolution was successful, and it started installing packages, but the process was terminated before completion.

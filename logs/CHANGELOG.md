@@ -61,7 +61,13 @@ All notable changes to the CrewAI Studio project will be documented in this file
 - Addressed circular dependency issues between langchain-community, langchain-core, and langchain-ollama
 - Fixed Python version constraints to ensure compatibility across all dependencies
 
+#### Progress
+- Dependency resolution was successful with the updated configurations
+- Installation process started but was terminated due to memory constraints
+- The changes to pyproject.toml have resolved the circular dependency issues
+
 #### Next Steps
-- Test installation scripts with the updated dependency configurations
+- Test installation on a system with more memory
+- Consider using a more minimal set of dependencies for development
 - Verify Docker builds successfully with the new configuration
 - Run the application to ensure all components work correctly
